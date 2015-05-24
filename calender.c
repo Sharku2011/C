@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 
 int cal(void)
@@ -7,18 +7,18 @@ int cal(void)
 	int monthday[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 	int summonth = 0;
 
-	printf("'¿¬ ¿ù ÀÏ' À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+	printf("'ì—° ì›” ì¼' ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 	check = scanf("%d %d %d",&year, &month, &date);
 
-	if (check != 3 || month < 0 || month > 12 || date < 1 || date > monthday[month])	//ÀÔ·ÂÀÌ Àß¸ø µÈ °æ¿ì ¸Ş¼¼Áö¸¦ Ãâ·ÂÇÏ°í Á¾·á½ÃÅµ´Ï´Ù.
+	if (check != 3 || month < 0 || month > 12 || date < 1 || date > monthday[month])	//ì…ë ¥ì´ ì˜ëª» ëœ ê²½ìš° ë©”ì„¸ì§€ë¥¼ ì¶œë ¥í•˜ê³  ì¢…ë£Œì‹œí‚µë‹ˆë‹¤.
 	{
-		printf("ÀÔ·ÂÀÌ Àß¸øµÇ¾ú½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+		printf("ì…ë ¥ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 		exit(0);
 	}
 
 	if (year < 2000)
 	{
-		printf("¿¬µµ´Â 2000³â ÀÌ»óÀÇ ¿¬µµ¸¦ ÀÔ·ÂÇÏ¿© ÁÖ¼¼¿ä.\n");
+		printf("ì—°ë„ëŠ” 2000ë…„ ì´ìƒì˜ ì—°ë„ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì„¸ìš”.\n");
 		exit(1);
 	}
 
@@ -27,13 +27,13 @@ int cal(void)
 		summonth = summonth + monthday[i];
 	}
 
-	cal = 365 * (year - 2000) + (year - 1996)/4 - (year - 2000)/100 + (year - 2000)/400 + summonth;					//2000³â 1¿ù 1ÀÏ·ÎºÎÅÍ ÀÔ·ÂÇÑ ´ŞÀÇ 1ÀÏ±îÁöÀÇ ³¯Â¥¸¦ °è»êÇÕ´Ï´Ù.
-	week = cal + date - 1;		//2000³â 1¿ù 1ÀÏ·ÎºÎÅÍ ÀÔ·ÂÇÑ ³¯±îÁöÀÇ ³¯Â¥ÀÎÁö¸¦ °è»êÇÕ´Ï´Ù.
+	cal = 365 * (year - 2000) + (year - 1996)/4 - (year - 2000)/100 + (year - 2000)/400 + summonth;					//2000ë…„ 1ì›” 1ì¼ë¡œë¶€í„° ì…ë ¥í•œ ë‹¬ì˜ 1ì¼ê¹Œì§€ì˜ ë‚ ì§œë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
+	week = cal + date - 1;		//2000ë…„ 1ì›” 1ì¼ë¡œë¶€í„° ì…ë ¥í•œ ë‚ ê¹Œì§€ì˜ ë‚ ì§œì¸ì§€ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
 
-	checkweek = week % 7;		//ÀÔ·ÂÇÑ ³¯ÀÇ ¿äÀÏÀ» Ã¼Å©
-	checkcal = cal % 7;			//ÀÔ·ÂÇÑ ´ŞÀÇ 1ÀÏÀÇ ¿äÀÏÀ» Ã¼Å©
+	checkweek = week % 7;		//ì…ë ¥í•œ ë‚ ì˜ ìš”ì¼ì„ ì²´í¬
+	checkcal = cal % 7;			//ì…ë ¥í•œ ë‹¬ì˜ 1ì¼ì˜ ìš”ì¼ì„ ì²´í¬
 
-	printf("			%dêÅ\n",month);			//´Ş·Â Ãâ·ÂºÎºĞ ½ÃÀÛ
+	printf("			%dæœˆ\n",month);			//ë‹¬ë ¥ ì¶œë ¥ë¶€ë¶„ ì‹œì‘
 	printf("sun	mon	tue	wed	thu	fri	sat\n");
 	if (checkcal == 0)
 	{
@@ -49,7 +49,7 @@ int cal(void)
 			printf("	");
 		}
 	}
-	if (month == 2)			//À±´ŞÀÎ °æ¿ì ´ŞÀÇ ³¡À» 28ÀÏ¿¡¼­ 29ÀÏ·Î ´Ã¸³´Ï´Ù.
+	if (month == 2)			//ìœ¤ë‹¬ì¸ ê²½ìš° ë‹¬ì˜ ëì„ 28ì¼ì—ì„œ 29ì¼ë¡œ ëŠ˜ë¦½ë‹ˆë‹¤.
 	{
 		if (year%400 == 0)
 		{
@@ -60,7 +60,7 @@ int cal(void)
 			monthday[month]++;
 		}
 	}
-	for (j = 1; j <= monthday[month]; j++)		//´Ş·Â³¯ÀÚ¸¦ Ãâ·ÂÇÏ´Â ºÎºĞÀÔ´Ï´Ù.
+	for (j = 1; j <= monthday[month]; j++)		//ë‹¬ë ¥ë‚ ìë¥¼ ì¶œë ¥í•˜ëŠ” ë¶€ë¶„ì…ë‹ˆë‹¤.
 	{
 		printf("%d	",j);
 		if ((checkcal + j - 1) % 7 == 0)
@@ -68,45 +68,45 @@ int cal(void)
 			printf("\n");
 		}
 	}
-	printf("\n\nÀÔ·ÂÇÏ½Å ³¯Â¥ %d³â %d¿ù %dÀÏ Àº ", year, month, date);
+	printf("\n\nì…ë ¥í•˜ì‹  ë‚ ì§œ %dë…„ %dì›” %dì¼ ì€ ", year, month, date);
 
 	switch (checkweek)
 	{
 		case 0:
 		{
-			printf("Åä");
+			printf("í† ");
 			break;
 		}
 		case 1:
 		{
-			printf("ÀÏ");
+			printf("ì¼");
 			break;
 		}
 		case 2:
 		{
-			printf("¿ù");
+			printf("ì›”");
 			break;
 		}
 		case 3:
 		{
-			printf("È­");
+			printf("í™”");
 			break;
 		}
 		case 4:
 		{
-			printf("¼ö");
+			printf("ìˆ˜");
 			break;
 		}
 		case 5:
 		{
-			printf("¸ñ");
+			printf("ëª©");
 			break;
 		}
 		case 6:
 		{
-			printf("±İ");
+			printf("ê¸ˆ");
 			break;
 		}
 	}
-	printf("¿äÀÏ ÀÔ´Ï´Ù.\n");
+	printf("ìš”ì¼ ì…ë‹ˆë‹¤.\n");
 }

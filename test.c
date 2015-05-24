@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -13,8 +13,8 @@ void main(void)
 	unsigned int grade[2] = { 0 };
 	char* ans;
 	unsigned int length, idx,check;
-	printf("¼ıÀÚ º£ÀÌ½ºº¼ °ÔÀÓ\n");
-	printf("°ÔÀÓÀ» ÁøÇàÇÒ ÀÚ¸´¼ö¸¦ Á¤ÇØÁÖ¼¼¿ä (1~10) : ");
+	printf("ìˆ«ì ë² ì´ìŠ¤ë³¼ ê²Œì„\n");
+	printf("ê²Œì„ì„ ì§„í–‰í•  ìë¦¿ìˆ˜ë¥¼ ì •í•´ì£¼ì„¸ìš” (1~10) : ");
 	scanf("%u", &length);
 	char* user = (char*)calloc(length,sizeof(char));
 	ans = randnum(length);
@@ -24,7 +24,7 @@ void main(void)
 		check = 0;
 		grade[0] = 0;
 		grade[1] = 0;
-		printf("%uÀÚ¸®ÀÇ ÀÚ¸´¼ö³¢¸® Áßº¹µÇÁö ¾Ê´Â ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.\n", length);
+		printf("%uìë¦¬ì˜ ìë¦¿ìˆ˜ë¼ë¦¬ ì¤‘ë³µë˜ì§€ ì•ŠëŠ” ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.\n", length);
 		gets(user);
 		if (strlen(user) < length)
 		{
@@ -32,14 +32,14 @@ void main(void)
 		}
 		if (IsOverlap(user) == 1)
 		{
-			printf("Áßº¹µÇ´Â ¼ıÀÚ´Â ÀÔ·ÂÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.\n");
+			printf("ì¤‘ë³µë˜ëŠ” ìˆ«ìëŠ” ì…ë ¥í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
 			continue;
 		}
 		for (idx = 0; idx < length; idx++)
 		{
 			if (isdigit(user[idx]) == 0)
 			{
-				printf("¼ıÀÚ¸¸ ÀÔ·ÂÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.\n",user[idx]);
+				printf("ìˆ«ìë§Œ ì…ë ¥í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\n",user[idx]);
 				check = 1;
 				break;
 			}
@@ -53,7 +53,7 @@ void main(void)
 		printf("%s, %s, %uS %uB\n", ans, user, grade[0], grade[1]);
 		if (grade[0] == length)
 		{
-			printf("ÃàÇÏÇÕ´Ï´Ù! ½Â¸®ÇÏ¼Ì½À´Ï´Ù.\n");
+			printf("ì¶•í•˜í•©ë‹ˆë‹¤! ìŠ¹ë¦¬í•˜ì…¨ìŠµë‹ˆë‹¤.\n");
 			break;
 		}
 	}
@@ -66,12 +66,12 @@ char* randnum(unsigned int length)
 	unsigned int idx, idx2;
 	if (length < 1)
 	{
-		printf("¹®ÀÚ¿­ÀÇ ±æÀÌ´Â 0º¸´Ù Ä¿¾ßÇÕ´Ï´Ù.\n");
+		printf("ë¬¸ìì—´ì˜ ê¸¸ì´ëŠ” 0ë³´ë‹¤ ì»¤ì•¼í•©ë‹ˆë‹¤.\n");
 		exit(0);
 	}
 	else if (length > 10)
 	{
-		printf("¹®ÀÚ¿­ÀÇ ±æÀÌ´Â 10º¸´Ù Å¬ ¼ö ¾ø½À´Ï´Ù.\n");
+		printf("ë¬¸ìì—´ì˜ ê¸¸ì´ëŠ” 10ë³´ë‹¤ í´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
 		exit(1);
 	}
 	else
