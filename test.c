@@ -25,11 +25,11 @@ void main(void)
 	FILE *score;
 
 
-	printf("숫자 베이스볼 게임\n");
+	printf("##########숫자 베이스볼 게임##########\n");
 	printf("게임을 진행할 자릿수를 정해주세요 (1~10) : ");
 	scanf("%u", &length);
 
-	user = (char*)calloc(length, sizeof(char));
+	user = (char*)calloc(length+1, sizeof(char));
 	ans = (char*)calloc(length+1, sizeof(char));
 
 	//난수문자열 생성.
@@ -38,16 +38,15 @@ void main(void)
 
 	//시도횟수입니다.
 	trial = 0;
-
+	
 	while (1)
 	{
-		//고쳐야 할 부분입니다. while(getchar != '\0') 을 쓰면 입력을 2번 받게됩니다. gets함수때문이 아닐까 싶습니다.)
-		fflush(stdin);
+		while (getchar() != '\n')
 		check = 0;
 		grade[0] = 0;
 		grade[1] = 0;
-		printf("%u자리의 자릿수끼리 중복되지 않는 숫자를 입력하세요.\n", length);
-		gets(user);
+		printf("\n%u자리의 자릿수끼리 중복되지 않는 숫자를 입력하세요.\n자릿수를 넘길 경우 넘어간 부분은 무시됩니다.\n\n", length);
+		fgets(user,length+1,stdin);
 		if (strlen(user) != length)
 		{
 			continue;
@@ -61,7 +60,7 @@ void main(void)
 		{
 			if (isdigit(user[idx]) == 0)
 			{
-				printf("숫자만 입력하실 수 있습니다.\n", user[idx]);
+				printf("숫자만 입력하실 수 있습니다.\n엔터 키를 누르시면 다시 입력하실 수 있습니다.", user[idx]);
 				check = 1;
 				break;
 			}
@@ -76,11 +75,12 @@ void main(void)
 		if (grade[0] == length)
 		{
 			end = time(0);
+			while (getchar() != '\n');
 			printf("축하합니다! 승리하셨습니다. 도전횟수 : %u 회\n", trial);
 			printf("이름을 입력해 주세요.(한글 5자, 영문 10자 이내) : ");
-			gets(name);
+			fgets(name,11,stdin);
 			score = fopen("score.txt", "a");
-			fprintf(score, "%s도전자 : %s, 도전 길이 : %u, 시도 횟수 : %u, 소요 시간 : %d초", asctime(localtime(&end)), name, length, trial, end - start);
+			fprintf(score, "%s도전자 : %s, 도전 길이 : %u, 시도 횟수 : %u, 소요 시간 : %d초\n", asctime(localtime(&end)), name, length, trial, end - start);
 			fclose(score);
 			break;
 		}
@@ -128,7 +128,6 @@ void randnum(char* ans,unsigned int length)
 			}
 			ans[idx] = add;
 		}
-		ans[(length + 1)] = '\0';
 	}
 }
 
