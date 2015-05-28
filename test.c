@@ -1,32 +1,54 @@
-﻿#include <stdio.h>
+﻿/*사용자가 지정한 길이의 
+'숫자로만 이루어진 난수 문자열'을 생성해서
+사용자로부터 새로운 숫자로만 구성된 문자열을 입력받아
+기존에 생성한 문자열과 비교하여
+같은 숫자가 있고 위치도 동일하면 스트라이크,
+같은 숫자가 있지만 문자열에서의 위치가 다를경우 볼로 인식해서
+처음에 만든 난수 문자열을 정확히 맞추는 프로그램입니다.*/
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
 
-char* randnum(unsigned int length);
-void marking(char* str1, char* str2, unsigned int* grade);
-int IsOverlap(char* str);
+void randnum(char* ans, unsigned int length);				//난수문자열 생성함수입니다.
+void marking(char* str1, char* str2, unsigned int* grade);	//두개의 문자열을 받아서 비교한 뒤 점수를 매기는(스트라이크와 볼을 구분하는) 함수입니다.
+int IsOverlap(char* str);									//문자열 안에 동일한 숫자가 2개 이상 존재하는지 파악하는 함수입니다. 0000 같은 입력을 방지하기 위한 함수입니다.
 
 void main(void)
 {
-	unsigned int grade[2] = { 0 };
-	char* ans;
-	unsigned int length, idx,check;
+	unsigned int grade[2] = { 0 };				//grade[0]은 스트라이크, grade[1]은 볼에 해당합니다.
+	char *user, *ans;							//user는 입력받는 문자열, ans는 처음에 생성하는 난수 문자열입니다.
+	char name[11];
+	unsigned int length, idx, check, trial;
+	time_t start, end;							//랭킹 기록을 위한 타이머입니다.
+	FILE *score;
+
+
 	printf("숫자 베이스볼 게임\n");
 	printf("게임을 진행할 자릿수를 정해주세요 (1~10) : ");
 	scanf("%u", &length);
-	char* user = (char*)calloc(length,sizeof(char));
-	ans = randnum(length);
+
+	user = (char*)calloc(length, sizeof(char));
+	ans = (char*)calloc(length+1, sizeof(char));
+
+	//난수문자열 생성.
+	randnum(ans, length);
+	start = time(0);
+
+	//시도횟수입니다.
+	trial = 0;
+
 	while (1)
 	{
+		//고쳐야 할 부분입니다. while(getchar != '\0') 을 쓰면 입력을 2번 받게됩니다. gets함수때문이 아닐까 싶습니다.)
 		fflush(stdin);
 		check = 0;
 		grade[0] = 0;
 		grade[1] = 0;
 		printf("%u자리의 자릿수끼리 중복되지 않는 숫자를 입력하세요.\n", length);
 		gets(user);
-		if (strlen(user) < length)
+		if (strlen(user) != length)
 		{
 			continue;
 		}
@@ -39,29 +61,37 @@ void main(void)
 		{
 			if (isdigit(user[idx]) == 0)
 			{
-				printf("숫자만 입력하실 수 있습니다.\n",user[idx]);
+				printf("숫자만 입력하실 수 있습니다.\n", user[idx]);
 				check = 1;
 				break;
 			}
 		}
 		if (check == 1)
 		{
-			printf("%s\n", user);
 			continue;
 		}
 		marking(ans, user, grade);
-		printf("%s, %s, %uS %uB\n", ans, user, grade[0], grade[1]);
+		trial++;
+		printf("%uS %uB\n", grade[0], grade[1]);
 		if (grade[0] == length)
 		{
-			printf("축하합니다! 승리하셨습니다.\n");
+			end = time(0);
+			printf("축하합니다! 승리하셨습니다. 도전횟수 : %u 회\n", trial);
+			printf("이름을 입력해 주세요.(한글 5자, 영문 10자 이내) : ");
+			gets(name);
+			score = fopen("score.txt", "a");
+			fprintf(score, "%s도전자 : %s, 도전 길이 : %u, 시도 횟수 : %u, 소요 시간 : %d초", asctime(localtime(&end)), name, length, trial, end - start);
+			fclose(score);
 			break;
 		}
 	}
+	//메모리 할당 해제
+	free(ans);
+	free(user);
 }
 
-char* randnum(unsigned int length)
+void randnum(char* ans,unsigned int length)
 {
-	char* ans = (char*)calloc((length + 1),sizeof(char));
 	char add;
 	unsigned int idx, idx2;
 	if (length < 1)
@@ -99,7 +129,6 @@ char* randnum(unsigned int length)
 			ans[idx] = add;
 		}
 		ans[(length + 1)] = '\0';
-		return ans;
 	}
 }
 
